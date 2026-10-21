@@ -23,5 +23,8 @@ fsd = "fsd.cli:app"
 [tool.setuptools.packages.find]
 include = ["fsd*"]
 
+[tool.setuptools.package-data]
+fsd = ["pipelines/*.yaml"]
+
 [tool.pytest.ini_options]
 testpaths = ["tests"]

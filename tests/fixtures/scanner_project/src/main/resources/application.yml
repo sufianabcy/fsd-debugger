@@ -1,0 +1,10 @@
+server:
+  port: 7070
+spring:
+  datasource:
+    url: jdbc:postgresql://db.example.com:5432/shop
+    username: shop
+  profiles:
+    include:
+      - local
+      - debug

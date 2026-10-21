@@ -13,10 +13,15 @@ Full design: docs/design.md. Read it before planning any change.
 
 ## Stack
 - Python 3.11+, Typer (CLI), Rich (panel), PyYAML, pytest.
-- Package in fsd/, pipelines in pipelines/*.yaml, tests in tests/,
+- Package in fsd/, pipelines in fsd/pipelines/*.yaml
+  (package data, loaded with importlib.resources), tests in tests/,
   real sample logs in tests/logs/*.log.
 - samples/demo-app is a Spring Boot app used to produce real logs. Break it
   on purpose to capture a log, then restore it.
+- Target Spring Boot 4.x but keep patterns tolerant of 3.x. The logs in
+  tests/logs are the source of truth for log wording, not the lines quoted
+  in docs/design.md.
+- Never hard-code the main class name, Java version or port in a pattern.
 
 ## Commands
 - Install: pip install -e ".[dev]"

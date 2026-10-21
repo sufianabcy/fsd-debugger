@@ -1,6 +1,7 @@
 """Tests for fsd run, using small fake commands instead of a real Spring Boot app."""
 
 import io
+import json
 import os
 import signal
 import subprocess
@@ -56,20 +57,34 @@ def test_debug_log_env_vars_are_set():
     script = (
         "import os\n"
         "print(os.environ['LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB'])\n"
-        "print(os.environ['LOGGING_LEVEL_ORG_HIBERNATE_SQL'])\n"
+        "print(os.environ['SPRING_APPLICATION_JSON'])\n"
     )
     out = io.BytesIO()
 
     runner.run(fake_app(script), out)
 
-    assert out.getvalue().splitlines() == [b"DEBUG", b"DEBUG"]
+    assert out.getvalue().splitlines() == [b"DEBUG", b'{"logging.level.org.hibernate.SQL": "DEBUG"}']
 
 
 def test_debug_env_keeps_existing_vars():
     env = runner.debug_env({"PATH": "/bin"})
 
     assert env["PATH"] == "/bin"
-    assert env["LOGGING_LEVEL_ORG_HIBERNATE_SQL"] == "DEBUG"
+    assert env["LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB"] == "DEBUG"
+
+
+def test_sql_log_level_is_added_to_the_apps_own_json():
+    env = runner.debug_env({"SPRING_APPLICATION_JSON": '{"server.port": 9000}'})
+
+    assert json.loads(env["SPRING_APPLICATION_JSON"]) == {"server.port": 9000, "logging.level.org.hibernate.SQL": "DEBUG"}
+
+
+@pytest.mark.parametrize(
+    "app_json",
+    ['{"logging": {"level": {"org.hibernate.SQL": "INFO"}}}', "{not json", "[1, 2]"],
+)
+def test_the_apps_own_json_is_left_alone_when_it_sets_sql_logging_or_is_not_an_object(app_json):
+    assert runner.debug_env({"SPRING_APPLICATION_JSON": app_json})["SPRING_APPLICATION_JSON"] == app_json
 
 
 def test_exit_code_is_passed_on():

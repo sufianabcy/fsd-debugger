@@ -49,7 +49,7 @@ Three commands
 • fsd try GET /display sends a request for you and traces it from "sent" to "response", so it can also catch the case where the request never reached the app (wrong port, app not running).
 • fsd doctor runs the same checks on your source code without starting the app: bean annotations, packages, duplicate or near-duplicate mappings, database settings, free port.
 How it sees each step without changing your code
-1. More detailed logs, switched on from outside. When fsd run starts your app it sets environment variables such as LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB=DEBUG and LOGGING_LEVEL_ORG_HIBERNATE_SQL=DEBUG. Spring Boot reads these on its own, so every request now logs GET "/display", Mapped to DisplayController#display() and Completed 404 NOT_FOUND, and every SQL statement is logged. You don't edit application.properties.
+1. More detailed logs, switched on from outside. When fsd run starts your app it sets LOGGING_LEVEL_ORG_SPRINGFRAMEWORK_WEB=DEBUG, and logging.level.org.hibernate.SQL=DEBUG inside SPRING_APPLICATION_JSON (Spring Boot lowercases logger names taken from environment variables, and org.hibernate.SQL has capitals). Spring Boot reads these on its own, so every request now logs GET "/display", Mapped to DisplayController#display() and Completed 404 NOT_FOUND, and every SQL statement is logged. You don't edit application.properties.
 2. One trace per request. Each Spring log line carries its thread name, like [nio-8080-exec-3]. A thread handles one request at a time, so the tool groups lines by thread from GET "/..." to Completed ... and gets one clean trace per request.
 3. Stack traces tell how deep it got. When your code throws, the tool keeps only the stack frames from your own package and labels each one controller, service or repository using the source scan. That is how it can say "reached UserService.create, failed inside UserRepository.save".
 4. Your source code fills in the details. A scanner reads your .java files once: classes, annotations, packages, injected fields and constructors, and every @GetMapping/@PostMapping path.
@@ -196,8 +196,10 @@ fsd/
   scanner/spring.py  # reads .java files: classes, annotations, packages, mappings
   checks/spring.py   # one function per yes/no check
   panel.py           # draws the step list and the fix
-pipelines/spring_startup.yaml
-pipelines/spring_request.yaml
+  session.py         # request traces as JSON lines in the OS temp folder, for fsd try
+  client.py          # fsd try: sends one request with the standard library
+  pipelines/spring_startup.yaml   # package data, read with importlib.resources
+  pipelines/spring_request.yaml
 tests/logs/*.log
 Build order
 1. Runner that starts the app and passes output through unchanged, with the debug env vars set.

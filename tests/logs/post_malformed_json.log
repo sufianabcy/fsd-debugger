@@ -1,0 +1,112 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24161 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -------------------------< com.demo:demo-app >--------------------------
+[INFO] Building demo-app 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.1.1:run (default-cli) > test-compile @ demo-app >>>
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ demo-app ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ demo-app ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ demo-app ---
+[INFO] skip non existing resourceDirectory /Users/abu96/CodeFolder/fsd/samples/demo-app/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ demo-app ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.1.1:run (default-cli) < test-compile @ demo-app <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.1.1:run (default-cli) @ demo-app ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-21T03:35:43.811+05:30  INFO 11293 --- [demo-app] [           main] com.demo.DemoAppApplication              : Starting DemoAppApplication using Java 21.0.9 with PID 11293 (/Users/abu96/CodeFolder/fsd/samples/demo-app/target/classes started by abu96 in /Users/abu96/CodeFolder/fsd/samples/demo-app)
+2026-10-21T03:35:43.812+05:30  INFO 11293 --- [demo-app] [           main] com.demo.DemoAppApplication              : No active profile set, falling back to 1 default profile: "default"
+2026-10-21T03:35:44.028+05:30  INFO 11293 --- [demo-app] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-21T03:35:44.053+05:30  INFO 11293 --- [demo-app] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 21 ms. Found 1 JPA repository interface.
+2026-10-21T03:35:44.217+05:30  INFO 11293 --- [demo-app] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-21T03:35:44.223+05:30  INFO 11293 --- [demo-app] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-21T03:35:44.223+05:30  INFO 11293 --- [demo-app] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-21T03:35:44.240+05:30  INFO 11293 --- [demo-app] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 413 ms
+2026-10-21T03:35:44.299+05:30  INFO 11293 --- [demo-app] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-21T03:35:44.374+05:30  INFO 11293 --- [demo-app] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:5e055d82-8752-4cb3-ba84-33cef5f1ad13 user=SA
+2026-10-21T03:35:44.375+05:30  INFO 11293 --- [demo-app] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-21T03:35:44.388+05:30  INFO 11293 --- [demo-app] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-21T03:35:44.410+05:30  INFO 11293 --- [demo-app] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-21T03:35:44.573+05:30  INFO 11293 --- [demo-app] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-21T03:35:44.605+05:30  INFO 11293 --- [demo-app] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:5e055d82-8752-4cb3-ba84-33cef5f1ad13]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: 5E055D82-8752-4CB3-BA84-33CEF5F1AD13/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-21T03:35:44.878+05:30 DEBUG 11293 --- [demo-app] [           main] org.hibernate.SQL                        : create global temporary table HTE_users(rn_ integer not null, id bigint, name varchar(255), primary key (rn_)) transactional
+2026-10-21T03:35:44.939+05:30  INFO 11293 --- [demo-app] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-21T03:35:44.947+05:30 DEBUG 11293 --- [demo-app] [           main] org.hibernate.SQL                        : drop table if exists users cascade 
+2026-10-21T03:35:44.947+05:30 DEBUG 11293 --- [demo-app] [           main] org.hibernate.SQL                        : drop sequence if exists users_seq
+2026-10-21T03:35:44.949+05:30 DEBUG 11293 --- [demo-app] [           main] org.hibernate.SQL                        : create sequence users_seq start with 1 increment by 50
+2026-10-21T03:35:44.950+05:30 DEBUG 11293 --- [demo-app] [           main] org.hibernate.SQL                        : create table users (id bigint not null, name varchar(255), primary key (id))
+2026-10-21T03:35:44.951+05:30  INFO 11293 --- [demo-app] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-21T03:35:44.986+05:30  INFO 11293 --- [demo-app] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-21T03:35:45.028+05:30  WARN 11293 --- [demo-app] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-21T03:35:45.086+05:30 DEBUG 11293 --- [demo-app] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 7 mappings in 'requestMappingHandlerMapping'
+2026-10-21T03:35:45.097+05:30 DEBUG 11293 --- [demo-app] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-10-21T03:35:45.105+05:30 DEBUG 11293 --- [demo-app] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-10-21T03:35:45.120+05:30 DEBUG 11293 --- [demo-app] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-10-21T03:35:45.156+05:30  INFO 11293 --- [demo-app] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-10-21T03:35:45.159+05:30  INFO 11293 --- [demo-app] [           main] com.demo.DemoAppApplication              : Started DemoAppApplication in 1.575 seconds (process running for 1.717)
+2026-10-21T03:35:46.271+05:30  INFO 11293 --- [demo-app] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-21T03:35:46.272+05:30  INFO 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-21T03:35:46.272+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-10-21T03:35:46.272+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-10-21T03:35:46.273+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@3a2881d6
+2026-10-21T03:35:46.273+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@427c2c96
+2026-10-21T03:35:46.273+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-10-21T03:35:46.273+05:30  INFO 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-21T03:35:46.276+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : POST "/users", parameters={}
+2026-10-21T03:35:46.280+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.demo.controller.UserController#create(User)
+2026-10-21T03:35:46.331+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.method.HandlerMethod             : Could not resolve parameter [0] in public com.demo.model.User com.demo.controller.UserController.create(com.demo.model.User): JSON parse error: Unexpected end-of-input: expected close marker for Object (start marker at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN])
+2026-10-21T03:35:46.332+05:30  WARN 11293 --- [demo-app] [nio-8080-exec-1] .w.s.m.s.DefaultHandlerExceptionResolver : Resolved [org.springframework.http.converter.HttpMessageNotReadableException: JSON parse error: Unexpected end-of-input: expected close marker for Object (start marker at [Source: REDACTED (`StreamReadFeature.INCLUDE_SOURCE_IN_LOCATION` disabled); byte offset: #UNKNOWN])]
+2026-10-21T03:35:46.333+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed 400 BAD_REQUEST
+2026-10-21T03:35:46.335+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2026-10-21T03:35:46.335+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.webmvc.autoconfigure.error.BasicErrorController#error(HttpServletRequest)
+2026-10-21T03:35:46.338+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-10-21T03:35:46.339+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Wed Oct 21 03:35:46 IST 2026, status=400, error=Bad Request, path=/users}]
+2026-10-21T03:35:46.347+05:30 DEBUG 11293 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 400
+2026-10-21T03:35:47.360+05:30  INFO 11293 --- [demo-app] [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-21T03:35:47.365+05:30  INFO 11293 --- [demo-app] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-10-21T03:35:47.366+05:30  INFO 11293 --- [demo-app] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-21T03:35:47.366+05:30 DEBUG 11293 --- [demo-app] [ionShutdownHook] org.hibernate.SQL                        : drop table if exists users cascade 
+2026-10-21T03:35:47.367+05:30 DEBUG 11293 --- [demo-app] [ionShutdownHook] org.hibernate.SQL                        : drop sequence if exists users_seq
+2026-10-21T03:35:47.368+05:30  INFO 11293 --- [demo-app] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-21T03:35:47.368+05:30  INFO 11293 --- [demo-app] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.379 s
+[INFO] Finished at: 2026-10-21T03:35:47+05:30
+[INFO] ------------------------------------------------------------------------

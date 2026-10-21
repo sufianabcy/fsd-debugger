@@ -1,0 +1,106 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24161 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -------------------------< com.demo:demo-app >--------------------------
+[INFO] Building demo-app 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.1.1:run (default-cli) > test-compile @ demo-app >>>
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ demo-app ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 0 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ demo-app ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Recompiling the module because of changed source code.
+[INFO] Compiling 6 source files with javac [debug parameters release 21] to target/classes
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ demo-app ---
+[INFO] skip non existing resourceDirectory /Users/abu96/CodeFolder/fsd/samples/demo-app/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ demo-app ---
+[INFO] Recompiling the module because of changed dependency.
+[INFO] Compiling 1 source file with javac [debug parameters release 21] to target/test-classes
+[INFO] 
+[INFO] <<< spring-boot:4.1.1:run (default-cli) < test-compile @ demo-app <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.1.1:run (default-cli) @ demo-app ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-21T02:48:04.977+05:30  INFO 76416 --- [demo-app] [           main] com.demo.DemoAppApplication              : Starting DemoAppApplication using Java 21.0.9 with PID 76416 (/Users/abu96/CodeFolder/fsd/samples/demo-app/target/classes started by abu96 in /Users/abu96/CodeFolder/fsd/samples/demo-app)
+2026-10-21T02:48:04.978+05:30  INFO 76416 --- [demo-app] [           main] com.demo.DemoAppApplication              : No active profile set, falling back to 1 default profile: "default"
+2026-10-21T02:48:05.198+05:30  INFO 76416 --- [demo-app] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-21T02:48:05.216+05:30  INFO 76416 --- [demo-app] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 14 ms. Found 1 JPA repository interface.
+2026-10-21T02:48:05.388+05:30  INFO 76416 --- [demo-app] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-21T02:48:05.397+05:30  INFO 76416 --- [demo-app] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-21T02:48:05.397+05:30  INFO 76416 --- [demo-app] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-21T02:48:05.425+05:30  INFO 76416 --- [demo-app] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 430 ms
+2026-10-21T02:48:05.482+05:30  INFO 76416 --- [demo-app] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-21T02:48:05.554+05:30  INFO 76416 --- [demo-app] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:b79f296c-7952-46bf-ad25-e9c4c575ab37 user=SA
+2026-10-21T02:48:05.555+05:30  INFO 76416 --- [demo-app] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-21T02:48:05.572+05:30  INFO 76416 --- [demo-app] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-21T02:48:05.601+05:30  INFO 76416 --- [demo-app] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-21T02:48:05.771+05:30  INFO 76416 --- [demo-app] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-21T02:48:05.806+05:30  INFO 76416 --- [demo-app] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:b79f296c-7952-46bf-ad25-e9c4c575ab37]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: B79F296C-7952-46BF-AD25-E9C4C575AB37/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-21T02:48:06.149+05:30  INFO 76416 --- [demo-app] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-21T02:48:06.160+05:30  INFO 76416 --- [demo-app] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-21T02:48:06.169+05:30  WARN 76416 --- [demo-app] [           main] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.beans.factory.UnsatisfiedDependencyException: Error creating bean with name 'displayController' defined in file [/Users/abu96/CodeFolder/fsd/samples/demo-app/target/classes/com/demo/controller/DisplayController.class]: Unsatisfied dependency expressed through constructor parameter 0: No qualifying bean of type 'org.springframework.web.client.RestTemplate' available: expected at least 1 bean which qualifies as autowire candidate. Dependency annotations: {}
+2026-10-21T02:48:06.169+05:30  INFO 76416 --- [demo-app] [           main] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-21T02:48:06.171+05:30  INFO 76416 --- [demo-app] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-21T02:48:06.171+05:30  INFO 76416 --- [demo-app] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2026-10-21T02:48:06.172+05:30  INFO 76416 --- [demo-app] [           main] o.apache.catalina.core.StandardService   : Stopping service [Tomcat]
+2026-10-21T02:48:06.178+05:30  INFO 76416 --- [demo-app] [           main] .s.b.a.l.ConditionEvaluationReportLogger : 
+
+Error starting ApplicationContext. To display the condition evaluation report re-run your application with 'debug' enabled.
+2026-10-21T02:48:06.184+05:30 ERROR 76416 --- [demo-app] [           main] o.s.b.d.LoggingFailureAnalysisReporter   : 
+
+***************************
+APPLICATION FAILED TO START
+***************************
+
+Description:
+
+Parameter 0 of constructor in com.demo.controller.DisplayController required a bean of type 'org.springframework.web.client.RestTemplate' that could not be found.
+
+
+Action:
+
+Consider defining a bean of type 'org.springframework.web.client.RestTemplate' in your configuration.
+
+[INFO] ------------------------------------------------------------------------
+[ERROR] BUILD FAILURE
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  3.511 s
+[INFO] Finished at: 2026-10-21T02:48:06+05:30
+[INFO] ------------------------------------------------------------------------
+[ERROR] Failed to execute goal org.springframework.boot:spring-boot-maven-plugin:4.1.1:run (default-cli) on project demo-app: Process terminated with exit code: 1 -> [Help 1]
+[ERROR] 
+[ERROR] To see the full stack trace of the errors, re-run Maven with the -e switch.
+[ERROR] Re-run Maven using the -X switch to enable full debug logging.
+[ERROR] 
+[ERROR] For more information about the errors and possible solutions, please read the following articles:
+[ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException

@@ -1,0 +1,142 @@
+# The 10 steps a Spring Boot app passes through at startup, in order.
+#
+# Written against the real logs in tests/logs/ (Spring Boot 4.1), kept tolerant
+# of 3.x wording. Never put the main class, Java version or port in a pattern.
+#
+# passed:   regexes tried on each log line. A step with no line of its own
+#           passes when a later step passes.
+# failures: regexes tried on a whole event: a log line plus its stack trace,
+#           "Caused by:" chain or APPLICATION FAILED TO START box. When one
+#           event matches several steps, the earliest step is the cause.
+# Named groups, like (?P<bean_type>...), are kept as details for the checklists.
+# note / message: shown in the step list, filled from those details.
+# checklist: the checks in fsd/checks/spring.py that look for the cause in the source.
+#
+# Patterns are Python regexes in single quotes: write a literal ' as ''.
+
+title: Startup
+
+steps:
+  - id: build
+    name: Build
+    passed:
+      - '^\[INFO\] --- spring-boot:\S+:run\b'
+    failures:
+      - id: cannot_find_symbol
+        title: the code uses a name that does not exist
+        message: '{file_name}:{line} cannot find {symbol}'
+        checklist: compile_error
+        patterns:
+          - '^\[ERROR\] (?P<file>.*?(?P<file_name>[^/\\\s]+\.java)):\[(?P<line>\d+),(?P<column>\d+)\] cannot find symbol\n\s+symbol:\s+(?P<symbol>.+)\n\s+location:\s+(?P<location>.+)'
+      - id: compile_error
+        title: the code does not compile
+        message: '{file_name}:{line} {error}'
+        checklist: compile_error
+        patterns:
+          - '^\[ERROR\] (?P<file>.*?(?P<file_name>[^/\\\s]+\.java)):\[(?P<line>\d+),(?P<column>\d+)\] (?P<error>.+)'
+
+  - id: start_app
+    name: Start the app
+    passed:
+      - 'Starting (?P<main_class>[\w$.]+)(?: v\S+)? using Java (?P<java_version>\S+)'
+    note: '{main_class}, Java {java_version}'
+
+  - id: load_configuration
+    name: Load configuration
+    passed:
+      - 'No active profile set'
+      - 'The following \d+ profiles? (?:is|are) active'
+    failures:
+      - id: property_bind_failed
+        title: a property has a value of the wrong type
+        message: '{property}={value} is not a valid {target_type}'
+        checklist: property_bind_failed
+        patterns:
+          # The box lists Value, Origin and Reason on their own lines; each is optional.
+          - 'Failed to bind properties under ''(?P<property>[^'']+)'' to (?P<target_type>\S+?):?$(?:[\s\S]*?^\s+Value: "(?P<value>[^"]*)")?(?:[\s\S]*?^\s+Origin: (?P<origin>.+?)(?: - (?P<origin_line>\d+):\d+)?$)?(?:[\s\S]*?^\s+Reason: (?P<reason>.+))?'
+
+  - id: prepare_web_server
+    name: Prepare web server
+    passed:
+      - 'Tomcat initialized with port(?:\(s\))?:? (?P<port>\d+)'
+    note: 'port {port}'
+
+  - id: connect_database
+    name: Connect to database
+    passed:
+      - ': (?P<pool>\S+) - Start completed\.'
+    failures:
+      - id: connection_refused
+        title: the database refused the connection
+        message: 'nothing accepted the connection at {host}:{port}'
+        checklist: connection_refused
+        patterns:
+          # Only in an event that mentions JDBC or Hikari, so a refused HTTP
+          # call made during startup is not blamed on the database.
+          - '\A(?=[\s\S]*(?:jdbc|JDBC|[Hh]ikari))[\s\S]*?ConnectException: Connection refused(?:: (?P<host>[\w.-]+):(?P<port>\d+))?'
+
+  - id: set_up_entities
+    name: Set up entities
+    passed:
+      - 'Initialized JPA EntityManagerFactory'
+    failures:
+      - id: not_a_managed_type
+        title: a repository uses a class that is not an entity
+        message: '{class_name} is not a JPA entity'
+        checklist: not_a_managed_type
+        patterns:
+          - 'Not a managed type: class (?P<class_name>[\w.$]+)'
+
+  - id: create_beans
+    name: Create beans
+    failures:
+      - id: missing_bean
+        title: a required bean was not found
+        message: '{consumer} needs a {bean_type}, none found'
+        checklist: missing_bean
+        patterns:
+          # The APPLICATION FAILED TO START box.
+          - '(?P<injection_point>[^\n]+?) in (?P<consumer>[\w.$]+) required a bean of type ''(?P<bean_type>[\w.$]+)'' that could not be found'
+          # The earlier "cancelling refresh attempt" warning.
+          - 'No qualifying bean of type ''(?P<bean_type>[\w.$]+)'''
+
+  - id: register_endpoints
+    name: Register endpoints
+    passed:
+      - '(?P<count>\d+) mappings in ''requestMappingHandlerMapping'''
+    note: '{count} mappings'
+    failures:
+      - id: ambiguous_mapping
+        title: two methods have the same mapping
+        message: '{http_method} {path} is mapped twice: {method} and {existing_method}'
+        checklist: ambiguous_mapping
+        patterns:
+          - 'Ambiguous mapping\. Cannot map ''(?P<bean>[^'']+)'' method\s+(?P<method>\S+)\s+to \{(?P<mapping>(?:(?P<http_method>[A-Z][A-Z, ]*) )?\[(?P<path>[^\]]*)\][^}]*)\}: There is already ''(?P<existing_bean>[^'']+)'' bean method\s+(?P<existing_method>\S+) mapped'
+
+  - id: open_port
+    name: Open the port
+    passed:
+      - 'Tomcat started on port(?:\(s\))?:? (?P<port>\d+)'
+    note: 'port {port}'
+    failures:
+      - id: port_in_use
+        title: the port is already in use
+        message: 'port {port} is already in use'
+        checklist: port_in_use
+        patterns:
+          - 'Port (?P<port>\d+) (?:was|is) already in use'
+
+  - id: ready
+    name: Ready
+    passed:
+      - 'Started (?P<main_class>[\w$.]+) in (?P<seconds>[\d.]+) seconds'
+    note: 'in {seconds} s'
+
+# Startup failed but no known cause matched: the step the app had reached fails.
+fallback:
+  id: unknown
+  title: failed, no known cause matched
+  patterns:
+    - '^APPLICATION FAILED TO START$'
+    - 'Application run failed'
+    - '^\[ERROR\] BUILD FAILURE'

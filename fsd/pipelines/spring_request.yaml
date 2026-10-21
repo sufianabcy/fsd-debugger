@@ -1,0 +1,174 @@
+# The 7 steps every HTTP request goes through, in order.
+#
+# Written against the request logs in tests/logs/ (Spring Boot 4.1, with the
+# debug logging fsd run switches on), kept tolerant of 3.x wording.
+#
+# trace:    one request's lines share a thread name; they run from `start` to
+#           one of `end`. A request that throws logs no "Completed": Spring
+#           renders the error page and logs the status when that is done.
+# passed / failures / note / message / checklist: as in spring_startup.yaml.
+# A failed step is the cause; a 4xx or 5xx status fails the last step too.
+# A checklist gets the failure's details, every passed step's details, and the
+# request itself as http_method and request_path.
+#
+# Patterns are Python regexes in single quotes: write a literal ' as ''.
+
+title: Request
+
+trace:
+  start: ': (?P<method>[A-Z]+) "(?P<path>[^"]*)", parameters='
+  end:
+    - ': Completed (?P<status>\d{3})\b'
+    - ': Exiting from "ERROR" dispatch, status (?P<status>\d{3})'
+  # The error page is a request of its own, to /error: its lines are not steps of this one.
+  error_dispatch: ': "ERROR" dispatch for '
+
+steps:
+  - id: reach_app
+    name: Reach the app
+    passed:
+      - ': (?P<method>[A-Z]+) "(?P<path>[^"]*)", parameters='
+    note: '{method} "{path}"'
+    failures:
+      # Only fsd try can tell: it sent the request and nothing answered.
+      - id: not_listening
+        title: the request did not reach the app
+        message: 'nothing is listening on port {port}; start it with fsd run'
+        patterns: []
+
+  - id: pass_filters
+    name: Pass filters
+
+  - id: match_controller
+    name: Match a controller
+    passed:
+      # Not "Mapped to ResourceHttpRequestHandler": that is the static-file
+      # lookup Spring tries when no controller matches.
+      - 'Mapped to (?P<controller>[\w.$]+)#(?P<handler>\w+)\('
+    note: '{controller}#{handler}()'
+    failures:
+      - id: no_handler
+        title: no controller method matches the path
+        message: 'nothing is mapped to {request_path}'
+        checklist: no_mapping
+        patterns:
+          - 'NoResourceFoundException: No static resource (?P<resource>\S+?)(?: for request ''(?P<request_path>[^'']*)'')?\.'
+      # The log does not say which methods the path accepts; the checklist reads them from the source.
+      - id: method_not_allowed
+        title: the path does not accept this HTTP method
+        message: 'this path does not accept {http_method}'
+        checklist: method_not_allowed
+        patterns:
+          - 'HttpRequestMethodNotSupportedException: Request method ''(?P<http_method>[A-Z]+)'' is not supported'
+
+  # A failure here comes after "Mapped to", so the checklist also knows the controller and handler.
+  - id: read_request
+    name: Read request data
+    passed:
+      - ': Read "(?P<content_type>[^"]*)" to '
+    failures:
+      - id: missing_body
+        title: the request has no body
+        message: '{controller}.{handler}() needs a request body, and the request had none'
+        checklist: missing_body
+        patterns:
+          - 'HttpMessageNotReadableException: Required request body is missing: [^\n\]]*? (?P<controller>[\w.$]+)\.(?P<handler>\w+)\((?P<parameter_types>[^)]*)\)'
+      # Before malformed_json: both are a "JSON parse error". Jackson does not name the field.
+      - id: json_wrong_type
+        title: a JSON field has a value of the wrong type
+        message: 'the body has {json_value}, which is not a valid {target_type}'
+        checklist: json_wrong_type
+        patterns:
+          - 'HttpMessageNotReadableException: JSON parse error: Cannot deserialize value of type `(?P<target_type>[^`]+)` from (?:String (?P<json_value>"(?:[^"\\]|\\.)*")|(?P<json_kind>\w+) value)'
+      - id: malformed_json
+        title: the request body is not valid JSON
+        message: 'the body is not valid JSON: {json_error}'
+        checklist: malformed_json
+        patterns:
+          # Jackson's message, without the "(start marker at [Source: ...])" location after it.
+          - 'HttpMessageNotReadableException: JSON parse error: (?P<json_error>.+?)(?= \(start marker at | at \[Source:|\]?$)'
+      # Spring Framework before 6.1 leaves out "Method parameter 'id': ".
+      - id: argument_type_mismatch
+        title: a path or query value has the wrong type
+        message: '{parameter}={value} is not a valid {target_type}'
+        checklist: argument_type_mismatch
+        patterns:
+          - 'MethodArgumentTypeMismatchException: (?:Method parameter ''(?P<parameter>[^'']+)'': )?Failed to convert value of type ''(?P<source_type>[^'']+)'' to required type ''(?P<target_type>[^'']+)''(?:; For input string: "(?P<value>[^"]*)")?'
+      - id: missing_request_param
+        title: a required query parameter is missing
+        message: '?{parameter}= is required, and the request has none'
+        checklist: missing_request_param
+        patterns:
+          - 'MissingServletRequestParameterException: Required request parameter ''(?P<parameter>[^'']+)'' for method parameter type (?P<parameter_type>\S+) is not present'
+
+  - id: run_code
+    name: Run your code
+    failures:
+      # Any exception at all, so it is generic: when an SQL error reaches your code
+      # as an exception, the SQL rule of step 6 is the cause.
+      - id: exception
+        title: your code threw an exception
+        message: '{error}'
+        generic: true
+        patterns:
+          - ': Failed to complete request: (?P<error>(?P<exception>[\w.$]+)(?:: (?P<exception_message>.*))?)'
+          - 'threw exception \[Request processing failed: (?P<error>(?P<exception>[\w.$]+)(?:: (?P<exception_message>.*?))?)\] with root cause'
+
+  - id: run_sql
+    name: Run SQL
+    passed:
+      - 'org\.hibernate\.SQL\s*: (?P<sql>.+)'
+    note: '{sql}'
+    # The database's own message, then the statement on the next line: H2's wording.
+    failures:
+      - id: missing_column
+        title: the database has no such column
+        message: 'the database has no column {column}'
+        checklist: missing_column
+        patterns:
+          - 'Column "(?:(?P<alias>\w+)\.)?(?P<column>\w+)" not found; SQL statement:\n(?P<sql>[^\n]+?)(?= \[\d+-\d+\]|$)'
+      - id: missing_table
+        title: the database has no such table
+        message: 'the database has no table {table}'
+        checklist: missing_table
+        patterns:
+          - 'Table "(?:\w+\.)?(?P<table>\w+)" not found(?: \([^)\n]*\))?; SQL statement:\n(?P<sql>[^\n]+?)(?= \[\d+-\d+\]|$)'
+      - id: duplicate_key
+        title: a row with the same unique value exists
+        message: '{value} is already in {table}.{column}, which must be unique'
+        checklist: duplicate_key
+        patterns:
+          - 'Unique index or primary key violation: "(?P<constraint>[^"]*?) ON (?:\w+\.)?(?P<table>\w+)\((?P<columns>(?P<column>\w+)[^)]*)\)(?: VALUES \( /\* \d+ \*/ (?P<value>.*?) \))?"; SQL statement:\n(?P<sql>[^\n]+?)(?= \[\d+-\d+\]|$)'
+      # Loading a lazy relationship is a query too; here the session that would run it was closed.
+      - id: lazy_initialization
+        title: a lazy relationship was read after the database session closed
+        message: '{role} was read after the database session closed'
+        checklist: lazy_initialization
+        patterns:
+          # Hibernate 7, then Hibernate 5 and 6.
+          - '(?P<writing_json>Could not write JSON: )?Cannot lazily initialize collection of role ''(?P<role>[^'']+)'' with key ''(?P<key>[^'']*)'''
+          - '(?P<writing_json>Could not write JSON: )?failed to lazily initialize a collection of role: (?P<role>[\w.$]+)'
+
+  # Once the response is committed, Spring still logs "Completed 200 OK" after an error here.
+  - id: send_response
+    name: Send the response
+    passed:
+      - ': Completed (?P<response>[123]\d\d(?: \S+)?)'
+    note: '{response}'
+    failures:
+      - id: json_recursion
+        title: two objects point at each other, so the JSON never ends
+        message: 'the JSON never ends: Jackson stopped {depth} levels deep'
+        checklist: json_recursion
+        patterns:
+          # Jackson 3 stops at a nesting depth; Jackson 2 could run out of stack first.
+          - 'Could not write JSON: Document nesting depth \((?P<depth>\d+)\) exceeds the maximum allowed \((?P<max_depth>\d+)'
+          - 'Could not write JSON: Infinite recursion \(StackOverflowError\)'
+      # The status says that something failed, not what: as generic as an exception.
+      - id: error_status
+        title: the app answered with an error status
+        message: '{response}'
+        generic: true
+        patterns:
+          - ': Completed (?P<response>(?P<status>[45]\d\d)(?: \S+)?)'
+          - ': Exiting from "ERROR" dispatch, status (?P<response>(?P<status>[45]\d\d))'

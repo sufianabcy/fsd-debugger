@@ -1,0 +1,234 @@
+[INFO] Scanning for projects...
+[INFO] Loaded 24161 auto-discovered prefixes for remote repository central (prefixes-central.txt)
+[INFO] 
+[INFO] -------------------------< com.demo:demo-app >--------------------------
+[INFO] Building demo-app 0.0.1-SNAPSHOT
+[INFO]   from pom.xml
+[INFO] --------------------------------[ jar ]---------------------------------
+[INFO] 
+[INFO] >>> spring-boot:4.1.1:run (default-cli) > test-compile @ demo-app >>>
+[INFO] 
+[INFO] --- resources:3.5.0:resources (default-resources) @ demo-app ---
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] Copying 1 resource from src/main/resources to target/classes
+[INFO] 
+[INFO] --- compiler:3.15.0:compile (default-compile) @ demo-app ---
+[INFO] Loaded 74 auto-discovered prefixes for remote repository apache.snapshots (prefixes-apache.snapshots.txt)
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] --- resources:3.5.0:testResources (default-testResources) @ demo-app ---
+[INFO] skip non existing resourceDirectory /Users/abu96/CodeFolder/fsd/samples/demo-app/src/test/resources
+[INFO] 
+[INFO] --- compiler:3.15.0:testCompile (default-testCompile) @ demo-app ---
+[INFO] Nothing to compile - all classes are up to date.
+[INFO] 
+[INFO] <<< spring-boot:4.1.1:run (default-cli) < test-compile @ demo-app <<<
+[INFO] 
+[INFO] 
+[INFO] --- spring-boot:4.1.1:run (default-cli) @ demo-app ---
+[INFO] Loaded 50 auto-discovered prefixes for remote repository ow2-snapshot (prefixes-ow2-snapshot.txt)
+[INFO] Attaching agents: []
+
+  .   ____          _            __ _ _
+ /\\ / ___'_ __ _ _(_)_ __  __ _ \ \ \ \
+( ( )\___ | '_ | '_| | '_ \/ _` | \ \ \ \
+ \\/  ___)| |_)| | | | | || (_| |  ) ) ) )
+  '  |____| .__|_| |_|_| |_\__, | / / / /
+ =========|_|==============|___/=/_/_/_/
+
+ :: Spring Boot ::                (v4.1.1)
+
+2026-10-21T03:56:19.752+05:30  INFO 27013 --- [demo-app] [           main] com.demo.DemoAppApplication              : Starting DemoAppApplication using Java 21.0.9 with PID 27013 (/Users/abu96/CodeFolder/fsd/samples/demo-app/target/classes started by abu96 in /Users/abu96/CodeFolder/fsd/samples/demo-app)
+2026-10-21T03:56:19.753+05:30  INFO 27013 --- [demo-app] [           main] com.demo.DemoAppApplication              : No active profile set, falling back to 1 default profile: "default"
+2026-10-21T03:56:19.933+05:30  INFO 27013 --- [demo-app] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data JPA repositories in DEFAULT mode.
+2026-10-21T03:56:19.956+05:30  INFO 27013 --- [demo-app] [           main] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 19 ms. Found 2 JPA repository interfaces.
+2026-10-21T03:56:20.115+05:30  INFO 27013 --- [demo-app] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat initialized with port 8080 (http)
+2026-10-21T03:56:20.121+05:30  INFO 27013 --- [demo-app] [           main] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2026-10-21T03:56:20.121+05:30  INFO 27013 --- [demo-app] [           main] o.apache.catalina.core.StandardEngine    : Starting Servlet engine: [Apache Tomcat/11.0.24]
+2026-10-21T03:56:20.138+05:30  INFO 27013 --- [demo-app] [           main] b.w.c.s.WebApplicationContextInitializer : Root WebApplicationContext: initialization completed in 370 ms
+2026-10-21T03:56:20.170+05:30  INFO 27013 --- [demo-app] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2026-10-21T03:56:20.242+05:30  INFO 27013 --- [demo-app] [           main] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Added connection conn0: url=jdbc:h2:mem:b0923b15-e5bb-48da-83cf-3e21a771cda2 user=SA
+2026-10-21T03:56:20.242+05:30  INFO 27013 --- [demo-app] [           main] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2026-10-21T03:56:20.281+05:30  INFO 27013 --- [demo-app] [           main] org.hibernate.orm.jpa                    : HHH008540: Processing PersistenceUnitInfo [name: default]
+2026-10-21T03:56:20.303+05:30  INFO 27013 --- [demo-app] [           main] org.hibernate.orm.core                   : HHH000001: Hibernate ORM core version 7.4.5.Final
+2026-10-21T03:56:20.454+05:30  INFO 27013 --- [demo-app] [           main] o.s.o.j.p.SpringPersistenceUnitInfo      : No LoadTimeWeaver setup: ignoring JPA class transformer
+2026-10-21T03:56:20.484+05:30  INFO 27013 --- [demo-app] [           main] org.hibernate.orm.connections.pooling    : HHH10001005: Database info:
+	Database JDBC URL [jdbc:h2:mem:b0923b15-e5bb-48da-83cf-3e21a771cda2]
+	Database driver: H2 JDBC Driver
+	Database dialect: H2Dialect
+	Database version: 2.4.240
+	Default catalog/schema: B0923B15-E5BB-48DA-83CF-3E21A771CDA2/PUBLIC
+	Autocommit mode: undefined/unknown
+	Isolation level: READ_COMMITTED [default READ_COMMITTED]
+	JDBC fetch size: 100
+	Pool: DataSourceConnectionProvider
+	Minimum pool size: undefined/unknown
+	Maximum pool size: undefined/unknown
+2026-10-21T03:56:20.792+05:30 DEBUG 27013 --- [demo-app] [           main] org.hibernate.SQL                        : create global temporary table HTE_posts(rn_ integer not null, id bigint, user_id bigint, title varchar(255), primary key (rn_)) transactional
+2026-10-21T03:56:20.793+05:30 DEBUG 27013 --- [demo-app] [           main] org.hibernate.SQL                        : create global temporary table HTE_users(rn_ integer not null, id bigint, name varchar(255), primary key (rn_)) transactional
+2026-10-21T03:56:20.847+05:30  INFO 27013 --- [demo-app] [           main] org.hibernate.orm.core                   : HHH000489: No JTA platform available (set 'hibernate.transaction.jta.platform' to enable JTA platform integration)
+2026-10-21T03:56:20.850+05:30  INFO 27013 --- [demo-app] [           main] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2026-10-21T03:56:20.888+05:30  INFO 27013 --- [demo-app] [           main] o.s.d.j.r.query.QueryEnhancerFactories   : Hibernate is in classpath; If applicable, HQL parser will be used.
+2026-10-21T03:56:20.933+05:30  WARN 27013 --- [demo-app] [           main] JpaBaseConfiguration$JpaWebConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2026-10-21T03:56:20.983+05:30 DEBUG 27013 --- [demo-app] [           main] s.w.s.m.m.a.RequestMappingHandlerMapping : 9 mappings in 'requestMappingHandlerMapping'
+2026-10-21T03:56:20.993+05:30 DEBUG 27013 --- [demo-app] [           main] o.s.w.s.handler.SimpleUrlHandlerMapping  : Patterns [/webjars/**, /**] in 'resourceHandlerMapping'
+2026-10-21T03:56:21.001+05:30 DEBUG 27013 --- [demo-app] [           main] s.w.s.m.m.a.RequestMappingHandlerAdapter : ControllerAdvice beans: 0 @ModelAttribute, 0 @InitBinder, 2 RequestBodyAdvice, 1 ResponseBodyAdvice
+2026-10-21T03:56:21.015+05:30 DEBUG 27013 --- [demo-app] [           main] .m.m.a.ExceptionHandlerExceptionResolver : ControllerAdvice beans: 0 @ExceptionHandler, 1 ResponseBodyAdvice
+2026-10-21T03:56:21.049+05:30  INFO 27013 --- [demo-app] [           main] o.s.boot.tomcat.TomcatWebServer          : Tomcat started on port 8080 (http) with context path '/'
+2026-10-21T03:56:21.051+05:30  INFO 27013 --- [demo-app] [           main] com.demo.DemoAppApplication              : Started DemoAppApplication in 1.535 seconds (process running for 1.679)
+2026-10-21T03:56:22.336+05:30  INFO 27013 --- [demo-app] [nio-8080-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2026-10-21T03:56:22.337+05:30  INFO 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2026-10-21T03:56:22.337+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected StandardServletMultipartResolver
+2026-10-21T03:56:22.337+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected AcceptHeaderLocaleResolver
+2026-10-21T03:56:22.338+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.view.DefaultRequestToViewNameTranslator@5f5fb335
+2026-10-21T03:56:22.338+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Detected org.springframework.web.servlet.support.SessionFlashMapManager@7164e54
+2026-10-21T03:56:22.338+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : enableLoggingRequestDetails='false': request parameters and headers will be masked to prevent unsafe logging of potentially sensitive data
+2026-10-21T03:56:22.338+05:30  INFO 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 1 ms
+2026-10-21T03:56:22.342+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : GET "/posts", parameters={}
+2026-10-21T03:56:22.346+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to com.demo.controller.PostController#list()
+2026-10-21T03:56:22.432+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] org.hibernate.SQL                        : select p1_0.id,p1_0.title,p1_0.user_id from posts p1_0
+2026-10-21T03:56:22.434+05:30  WARN 27013 --- [demo-app] [nio-8080-exec-1] org.hibernate.orm.jdbc.error             : HHH000247: ErrorCode: 42102, SQLState: 42S02
+2026-10-21T03:56:22.434+05:30  WARN 27013 --- [demo-app] [nio-8080-exec-1] org.hibernate.orm.jdbc.error             : Table "POSTS" not found; SQL statement:
+select p1_0.id,p1_0.title,p1_0.user_id from posts p1_0 [42102-240]
+2026-10-21T03:56:22.438+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Failed to complete request: org.springframework.dao.InvalidDataAccessResourceUsageException: Could not prepare statement [Table "POSTS" not found; SQL statement:
+select p1_0.id,p1_0.title,p1_0.user_id from posts p1_0 [42102-240]] [select p1_0.id,p1_0.title,p1_0.user_id from posts p1_0]; SQL [select p1_0.id,p1_0.title,p1_0.user_id from posts p1_0]
+2026-10-21T03:56:22.438+05:30 ERROR 27013 --- [demo-app] [nio-8080-exec-1] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed: org.springframework.dao.InvalidDataAccessResourceUsageException: Could not prepare statement [Table "POSTS" not found; SQL statement:
+select p1_0.id,p1_0.title,p1_0.user_id from posts p1_0 [42102-240]] [select p1_0.id,p1_0.title,p1_0.user_id from posts p1_0]; SQL [select p1_0.id,p1_0.title,p1_0.user_id from posts p1_0]] with root cause
+
+org.h2.jdbc.JdbcSQLSyntaxErrorException: Table "POSTS" not found; SQL statement:
+select p1_0.id,p1_0.title,p1_0.user_id from posts p1_0 [42102-240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:514) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.message.DbException.getJdbcSQLException(DbException.java:489) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.message.DbException.get(DbException.java:223) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.message.DbException.get(DbException.java:199) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.getTableOrViewNotFoundDbException(Parser.java:8049) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.getTableOrViewNotFoundDbException(Parser.java:8020) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.readTableOrView(Parser.java:7999) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.readTablePrimary(Parser.java:1772) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.readTableReference(Parser.java:2252) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parseSelectFromPart(Parser.java:2705) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parseSelect(Parser.java:2813) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parseQueryPrimary(Parser.java:2695) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parseQueryTerm(Parser.java:2550) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parseQueryExpressionBody(Parser.java:2529) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parseQueryExpressionBodyAndEndOfQuery(Parser.java:2522) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parseQueryExpression(Parser.java:2515) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parseQuery(Parser.java:2482) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parsePrepared(Parser.java:613) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parse(Parser.java:584) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.parse(Parser.java:559) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.command.Parser.prepareCommand(Parser.java:487) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.engine.SessionLocal.prepareLocal(SessionLocal.java:647) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.engine.SessionLocal.prepareCommand(SessionLocal.java:563) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.jdbc.JdbcConnection.prepareCommand(JdbcConnection.java:1160) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.jdbc.JdbcPreparedStatement.<init>(JdbcPreparedStatement.java:93) ~[h2-2.4.240.jar:2.4.240]
+	at org.h2.jdbc.JdbcConnection.prepareStatement(JdbcConnection.java:686) ~[h2-2.4.240.jar:2.4.240]
+	at com.zaxxer.hikari.pool.ProxyConnection.prepareStatement(ProxyConnection.java:342) ~[HikariCP-7.0.2.jar:na]
+	at com.zaxxer.hikari.pool.HikariProxyConnection.prepareStatement(HikariProxyConnection.java) ~[HikariCP-7.0.2.jar:na]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$4.doPrepare(StatementPreparerImpl.java:155) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl$StatementPreparationTemplate.prepareStatement(StatementPreparerImpl.java:183) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.engine.jdbc.internal.StatementPreparerImpl.prepareQueryStatement(StatementPreparerImpl.java:157) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.sql.exec.internal.StandardStatementCreator.createStatement(StandardStatementCreator.java:46) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.executeQuery(DeferredResultSetAccess.java:255) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.sql.results.jdbc.internal.DeferredResultSetAccess.getResultSet(DeferredResultSetAccess.java:188) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.sql.results.jdbc.internal.JdbcValuesResultSetImpl.<init>(JdbcValuesResultSetImpl.java:71) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.resolveJdbcValues(JdbcSelectExecutorStandardImpl.java:422) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.resolveJdbcValuesSource(JdbcSelectExecutorStandardImpl.java:349) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.doExecuteQuery(JdbcSelectExecutorStandardImpl.java:143) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.sql.exec.internal.JdbcSelectExecutorStandardImpl.executeQuery(JdbcSelectExecutorStandardImpl.java:100) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.executeQuery(JdbcSelectExecutor.java:63) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.sql.exec.spi.JdbcSelectExecutor.list(JdbcSelectExecutor.java:137) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.lambda$new$1(ConcreteSqmSelectQueryPlan.java:136) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.withCacheableSqmInterpretation(ConcreteSqmSelectQueryPlan.java:484) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.query.sqm.internal.ConcreteSqmSelectQueryPlan.performList(ConcreteSqmSelectQueryPlan.java:411) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.query.sqm.internal.SqmQueryImpl.doList(SqmQueryImpl.java:379) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.query.spi.AbstractSelectionQuery.list(AbstractSelectionQuery.java:153) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.hibernate.query.Query.getResultList(Query.java:121) ~[hibernate-core-7.4.5.Final.jar:7.4.5.Final]
+	at org.springframework.data.jpa.repository.support.SimpleJpaRepository.findAll(SimpleJpaRepository.java:412) ~[spring-data-jpa-4.1.1.jar:4.1.1]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.aop.support.AopUtils.invokeJoinpointUsingReflection(AopUtils.java:359) ~[spring-aop-7.0.9.jar:7.0.9]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker$RepositoryFragmentMethodInvoker.lambda$new$0(RepositoryMethodInvoker.java:278) ~[spring-data-commons-4.1.1.jar:4.1.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.doInvoke(RepositoryMethodInvoker.java:169) ~[spring-data-commons-4.1.1.jar:4.1.1]
+	at org.springframework.data.repository.core.support.RepositoryMethodInvoker.invoke(RepositoryMethodInvoker.java:158) ~[spring-data-commons-4.1.1.jar:4.1.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition$RepositoryFragments.invoke(RepositoryComposition.java:545) ~[spring-data-commons-4.1.1.jar:4.1.1]
+	at org.springframework.data.repository.core.support.RepositoryComposition.invoke(RepositoryComposition.java:290) ~[spring-data-commons-4.1.1.jar:4.1.1]
+	at org.springframework.data.repository.core.support.RepositoryFactorySupport$ImplementationMethodExecutionInterceptor.invoke(RepositoryFactorySupport.java:690) ~[spring-data-commons-4.1.1.jar:4.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.9.jar:7.0.9]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.doInvoke(QueryExecutorMethodInterceptor.java:171) ~[spring-data-commons-4.1.1.jar:4.1.1]
+	at org.springframework.data.repository.core.support.QueryExecutorMethodInterceptor.invoke(QueryExecutorMethodInterceptor.java:146) ~[spring-data-commons-4.1.1.jar:4.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.9.jar:7.0.9]
+	at org.springframework.data.projection.DefaultMethodInvokingMethodInterceptor.invoke(DefaultMethodInvokingMethodInterceptor.java:69) ~[spring-data-commons-4.1.1.jar:4.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.9.jar:7.0.9]
+	at org.springframework.transaction.interceptor.TransactionInterceptor$1.proceedWithInvocation(TransactionInterceptor.java:133) ~[spring-tx-7.0.9.jar:7.0.9]
+	at org.springframework.transaction.interceptor.TransactionAspectSupport.invokeWithinTransaction(TransactionAspectSupport.java:371) ~[spring-tx-7.0.9.jar:7.0.9]
+	at org.springframework.transaction.interceptor.TransactionInterceptor.invoke(TransactionInterceptor.java:130) ~[spring-tx-7.0.9.jar:7.0.9]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.9.jar:7.0.9]
+	at org.springframework.dao.support.PersistenceExceptionTranslationInterceptor.invoke(PersistenceExceptionTranslationInterceptor.java:135) ~[spring-tx-7.0.9.jar:7.0.9]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.9.jar:7.0.9]
+	at org.springframework.data.jpa.repository.support.CrudMethodMetadataPostProcessor$CrudMethodMetadataPopulatingMethodInterceptor.invoke(CrudMethodMetadataPostProcessor.java:166) ~[spring-data-jpa-4.1.1.jar:4.1.1]
+	at org.springframework.aop.framework.ReflectiveMethodInvocation.proceed(ReflectiveMethodInvocation.java:179) ~[spring-aop-7.0.9.jar:7.0.9]
+	at org.springframework.aop.framework.JdkDynamicAopProxy.invoke(JdkDynamicAopProxy.java:222) ~[spring-aop-7.0.9.jar:7.0.9]
+	at jdk.proxy2/jdk.proxy2.$Proxy124.findAll(Unknown Source) ~[na:na]
+	at com.demo.service.PostService.findAll(PostService.java:25) ~[classes/:na]
+	at com.demo.controller.PostController.list(PostController.java:25) ~[classes/:na]
+	at java.base/jdk.internal.reflect.DirectMethodHandleAccessor.invoke(DirectMethodHandleAccessor.java:103) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:580) ~[na:na]
+	at org.springframework.web.method.support.InvocableHandlerMethod.doInvoke(InvocableHandlerMethod.java:252) ~[spring-web-7.0.9.jar:7.0.9]
+	at org.springframework.web.method.support.InvocableHandlerMethod.invokeForRequest(InvocableHandlerMethod.java:184) ~[spring-web-7.0.9.jar:7.0.9]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:117) ~[spring-webmvc-7.0.9.jar:7.0.9]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:934) ~[spring-webmvc-7.0.9.jar:7.0.9]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:853) ~[spring-webmvc-7.0.9.jar:7.0.9]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:86) ~[spring-webmvc-7.0.9.jar:7.0.9]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:963) ~[spring-webmvc-7.0.9.jar:7.0.9]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:866) ~[spring-webmvc-7.0.9.jar:7.0.9]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:1000) ~[spring-webmvc-7.0.9.jar:7.0.9]
+	at org.springframework.web.servlet.FrameworkServlet.doGet(FrameworkServlet.java:892) ~[spring-webmvc-7.0.9.jar:7.0.9]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:622) ~[tomcat-embed-core-11.0.24.jar:6.1]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:874) ~[spring-webmvc-7.0.9.jar:7.0.9]
+	at jakarta.servlet.http.HttpServlet.service(HttpServlet.java:710) ~[tomcat-embed-core-11.0.24.jar:6.1]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:132) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:59) ~[tomcat-embed-websocket-11.0.24.jar:11.0.24]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:100) ~[spring-web-7.0.9.jar:7.0.9]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.9.jar:7.0.9]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:93) ~[spring-web-7.0.9.jar:7.0.9]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.9.jar:7.0.9]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:199) ~[spring-web-7.0.9.jar:7.0.9]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:116) ~[spring-web-7.0.9.jar:7.0.9]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:111) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:165) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:77) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:535) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:115) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:86) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:71) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:347) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:406) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:71) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:1307) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:2036) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:74) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:949) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.tomcat.util.threads.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:483) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:74) ~[tomcat-embed-core-11.0.24.jar:11.0.24]
+	at java.base/java.lang.Thread.run(Thread.java:1583) ~[na:na]
+
+2026-10-21T03:56:22.442+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : "ERROR" dispatch for GET "/error", parameters={}
+2026-10-21T03:56:22.442+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] s.w.s.m.m.a.RequestMappingHandlerMapping : Mapped to org.springframework.boot.webmvc.autoconfigure.error.BasicErrorController#error(HttpServletRequest)
+2026-10-21T03:56:22.447+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Using 'application/json', given [*/*] and supported [application/json, application/*+json]
+2026-10-21T03:56:22.447+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.w.s.m.m.a.HttpEntityMethodProcessor  : Writing [{timestamp=Wed Oct 21 03:56:22 IST 2026, status=500, error=Internal Server Error, path=/posts}]
+2026-10-21T03:56:22.457+05:30 DEBUG 27013 --- [demo-app] [nio-8080-exec-1] o.s.web.servlet.DispatcherServlet        : Exiting from "ERROR" dispatch, status 500
+2026-10-21T03:56:23.474+05:30  INFO 27013 --- [demo-app] [ionShutdownHook] o.s.boot.tomcat.GracefulShutdown         : Commencing graceful shutdown. Waiting for active requests to complete
+2026-10-21T03:56:23.483+05:30  INFO 27013 --- [demo-app] [tomcat-shutdown] o.s.boot.tomcat.GracefulShutdown         : Graceful shutdown complete
+2026-10-21T03:56:23.485+05:30  INFO 27013 --- [demo-app] [ionShutdownHook] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2026-10-21T03:56:23.487+05:30  INFO 27013 --- [demo-app] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2026-10-21T03:56:23.488+05:30  INFO 27013 --- [demo-app] [ionShutdownHook] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+[INFO] ------------------------------------------------------------------------
+[INFO] BUILD SUCCESS
+[INFO] ------------------------------------------------------------------------
+[INFO] Total time:  5.440 s
+[INFO] Finished at: 2026-10-21T03:56:23+05:30
+[INFO] ------------------------------------------------------------------------

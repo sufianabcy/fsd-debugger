@@ -2,10 +2,16 @@
 
 import signal
 import sys
+from pathlib import Path
 
 import typer
+from rich.console import Console
 
-from fsd import runner
+from fsd import client, runner
+from fsd.checks.spring import diagnose
+from fsd.panel import RequestPanel, StepPanel
+from fsd.session import start_session
+from fsd.tracker import Tracker, load_pipeline
 
 app = typer.Typer(
     help="Step-by-step flow tracer for Spring Boot.",
@@ -38,11 +44,33 @@ def run(
         ..., help="The command that starts your app, after --. Example: fsd run -- ./mvnw spring-boot:run"
     ),
 ) -> None:
-    """Start your app and show its output unchanged."""
+    """Start your app, show its output unchanged, then the startup steps and each request."""
     stop_app_when_terminated()
+    project = Path.cwd()
+    console = Console(stderr=True)
+    startup = StepPanel(Tracker(load_pipeline("spring_startup")), console, diagnose)
+    requests = RequestPanel(load_pipeline("spring_request"), console, project, start_session(project))
+
+    def on_line(line: bytes) -> None:
+        startup.on_line(line)
+        requests.on_line(line)
+
     try:
-        code = runner.run(command, sys.stdout.buffer)
+        code = runner.run(command, sys.stdout.buffer, on_line=on_line)
     except FileNotFoundError:
         typer.echo(f"fsd: command not found: {command[0]}", err=True)
         code = EXIT_COMMAND_NOT_FOUND
+    startup.on_exit()
+    requests.on_exit()
     raise typer.Exit(code)
+
+
+@app.command("try")
+def try_request(
+    method: str = typer.Argument(..., help="The HTTP method: GET, POST, PUT, PATCH or DELETE."),
+    path: str = typer.Argument(..., help="The path to call, like /users."),
+    body: str | None = typer.Option(None, "--body", help="A JSON body to send, like '{\"name\": \"Ada\"}'."),
+    port: int = typer.Option(8080, "--port", help="The port your app listens on."),
+) -> None:
+    """Send one request to your app (started with fsd run) and show the steps it went through."""
+    raise typer.Exit(client.try_request(method, path, body, port, Console(), Path.cwd()))
