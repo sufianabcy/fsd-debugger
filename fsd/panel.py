@@ -10,6 +10,7 @@ from rich.panel import Panel
 from rich.table import Table
 from rich.text import Text
 
+from fsd.checks.doctor import Section
 from fsd.checks.spring import CheckResult, diagnose_request
 from fsd.scanner.spring import scan, simple_type_name
 from fsd.session import append_trace
@@ -136,6 +137,37 @@ def render_checks(results: list[CheckResult]) -> Padding:
     if failed is not None and failed.note:
         parts.append(Text.assemble(("Note: ", "bold"), failed.note))
     return Padding(Group(*parts), (0, 0, 0, 2))
+
+
+def doctor_text(result: CheckResult) -> Text:
+    """A doctor check: its message and location, and for one that failed its own fix and note."""
+    text = check_text(result)
+    if not result.passed and result.fix:
+        text.append("\n").append_text(Text.assemble(("Fix: ", "bold green"), result.fix))
+    if not result.passed and result.note:
+        text.append("\n").append_text(Text.assemble(("Note: ", "bold"), result.note))
+    return text
+
+
+def render_doctor(sections: list[Section], root: Path) -> Group:
+    """Each section's checks with ✓ ✗ and every failed check's fix, then how many failed."""
+    parts = [Text(f"fsd doctor · {root}", style="bold")]
+    for section in sections:
+        if not section.results and not section.errors:
+            continue
+        rows = Table.grid(padding=(0, 1))
+        for result in section.results:
+            rows.add_row(check_symbol(result), doctor_text(result))
+        parts += [Text(), Text(section.title, style="bold"), Padding(rows, (0, 0, 0, 2))]
+        parts += [Padding(Text(error, style="yellow"), (0, 0, 0, 2)) for error in section.errors]
+    failed = sum(not r.passed for section in sections for r in section.results)
+    passed = sum(r.passed for section in sections for r in section.results)
+    checks = f"{passed} check passed" if passed == 1 else f"{passed} checks passed"
+    if failed:
+        summary = Text(f"✗ {failed} problem{'s' if failed > 1 else ''} found, {checks}", style="bold red")
+    else:
+        summary = Text(f"✓ no problems found, {checks}", style="bold green")
+    return Group(*parts, Text(), summary)
 
 
 def print_checks(console: Console, run_checks: Callable[[], list[CheckResult]]) -> None:

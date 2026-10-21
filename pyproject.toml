@@ -1,5 +1,5 @@
 [build-system]
-requires = ["setuptools>=68"]
+requires = ["setuptools>=77"]
 build-backend = "setuptools.build_meta"
 
 [project]
@@ -8,6 +8,24 @@ version = "0.1.0"
 description = "Step-by-step flow tracer for Spring Boot: follows startup and requests from the logs and explains failures."
 readme = "README.md"
 requires-python = ">=3.11"
+license = "MIT"
+license-files = ["LICENSE"]
+authors = [{ name = "Sufian Choudhury" }]
+keywords = ["spring boot", "spring", "debugging", "logs", "cli", "java"]
+classifiers = [
+    "Development Status :: 3 - Alpha",
+    "Environment :: Console",
+    "Intended Audience :: Developers",
+    "Intended Audience :: Education",
+    "Operating System :: OS Independent",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3 :: Only",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Software Development :: Debuggers",
+]
 dependencies = [
     "typer>=0.12",
     "rich>=13",
@@ -16,6 +34,10 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = ["pytest>=8"]
+
+[project.urls]
+Homepage = "https://github.com/sufianabcy/fsd-debugger"
+Issues = "https://github.com/sufianabcy/fsd-debugger/issues"
 
 [project.scripts]
 fsd = "fsd.cli:app"

@@ -94,7 +94,7 @@ def test_exit_code_is_passed_on():
 
 
 def test_lines_arrive_before_the_app_exits():
-    app = runner.App(fake_app("import time\nprint('ready', flush=True)\ntime.sleep(30)"))
+    app = runner.App(fake_app("import sys, time\nsys.stdout.buffer.write(b'ready\\n')\nsys.stdout.flush()\ntime.sleep(30)"))
     try:
         assert next(app.lines()) == b"ready\n"
         assert app.is_running()
@@ -153,7 +153,7 @@ def test_ctrl_c_stops_the_app_and_the_processes_it_started():
 
 def test_cli_runs_the_command_after_double_dash():
     result = subprocess.run(
-        [PY, "-m", "fsd", "run", "--", PY, "-c", "print('hello from the app')"],
+        [PY, "-m", "fsd", "run", "--", PY, "-c", "import sys; sys.stdout.buffer.write(b'hello from the app\\n')"],
         capture_output=True,
     )
 

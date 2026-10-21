@@ -194,7 +194,12 @@ fsd/
   runner.py          # starts your app, sets debug log env vars, streams lines
   tracker.py         # moves steps to passed/failed, groups request lines by thread
   scanner/spring.py  # reads .java files: classes, annotations, packages, mappings
-  checks/spring.py   # one function per yes/no check
+  scanner/build.py   # reads pom.xml / build.gradle dependencies
+  checks/spring.py   # the checklists by name, and running them
+  checks/startup.py  # one function per yes/no check, for startup failures
+  checks/request.py  # the same for request failures
+  checks/common.py   # CheckResult and what both share
+  checks/doctor.py   # fsd doctor: source-only checks over the whole project
   panel.py           # draws the step list and the fix
   session.py         # request traces as JSON lines in the OS temp folder, for fsd try
   client.py          # fsd try: sends one request with the standard library

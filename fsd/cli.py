@@ -8,8 +8,10 @@ import typer
 from rich.console import Console
 
 from fsd import client, runner
+from fsd.checks.doctor import examine
 from fsd.checks.spring import diagnose
-from fsd.panel import RequestPanel, StepPanel
+from fsd.panel import RequestPanel, StepPanel, render_doctor
+from fsd.scanner.spring import SOURCE_ROOT
 from fsd.session import start_session
 from fsd.tracker import Tracker, load_pipeline
 
@@ -20,6 +22,7 @@ app = typer.Typer(
 )
 
 EXIT_COMMAND_NOT_FOUND = 127
+EXIT_NOT_A_PROJECT = 2
 
 
 @app.callback()
@@ -74,3 +77,17 @@ def try_request(
 ) -> None:
     """Send one request to your app (started with fsd run) and show the steps it went through."""
     raise typer.Exit(client.try_request(method, path, body, port, Console(), Path.cwd()))
+
+
+@app.command()
+def doctor(
+    path: Path = typer.Argument(Path("."), help="Your Spring Boot project's folder, the one with pom.xml or build.gradle."),
+) -> None:
+    """Check your project's source for common mistakes, without starting the app."""
+    console = Console()
+    if not (path / SOURCE_ROOT).is_dir():
+        console.print(f"fsd: no {SOURCE_ROOT.as_posix()} in {path.resolve()}. Run fsd doctor in your Spring Boot project's folder.")
+        raise typer.Exit(EXIT_NOT_A_PROJECT)
+    sections = examine(path)
+    console.print(render_doctor(sections, path.resolve()))
+    raise typer.Exit(1 if any(not r.passed for section in sections for r in section.results) else 0)

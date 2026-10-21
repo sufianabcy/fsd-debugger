@@ -38,7 +38,7 @@ def injections_of(project, owner):
 
 
 def test_demo_types_with_package_file_and_line(demo):
-    assert [(t.kind, t.full_name, str(t.file), t.line) for t in demo.types] == [
+    assert [(t.kind, t.full_name, t.file.as_posix(), t.line) for t in demo.types] == [
         ("class", "com.demo.DemoAppApplication", "src/main/java/com/demo/DemoAppApplication.java", 7),
         ("class", "com.demo.controller.DisplayController", "src/main/java/com/demo/controller/DisplayController.java", 7),
         ("class", "com.demo.controller.PostController", "src/main/java/com/demo/controller/PostController.java", 15),
@@ -97,7 +97,7 @@ def test_demo_application_class_and_package(demo):
 
 
 def test_demo_request_mappings(demo):
-    assert [(m.http_method, m.path, m.handler, str(m.file), m.line) for m in demo.mappings] == [
+    assert [(m.http_method, m.path, m.handler, m.file.as_posix(), m.line) for m in demo.mappings] == [
         ("GET", "/display", "DisplayController#display", "src/main/java/com/demo/controller/DisplayController.java", 9),
         ("GET", "/posts", "PostController#list", "src/main/java/com/demo/controller/PostController.java", 23),
         ("POST", "/users/{userId}/posts", "PostController#create", "src/main/java/com/demo/controller/PostController.java", 28),
@@ -198,7 +198,7 @@ def test_nested_type_has_its_outer_class_in_its_name(fixture):
 
 
 def test_non_public_types_in_the_same_file_are_found(fixture):
-    assert str(one_type(fixture, "LegacyController").file).endswith("web/ApiController.java")
+    assert one_type(fixture, "LegacyController").file.as_posix().endswith("web/ApiController.java")
     assert one_type(fixture, "Paths").line == 80
 
 
@@ -459,13 +459,13 @@ def test_yaml_keys_are_flattened_with_their_lines(fixture):
 def test_properties_file_wins_over_yaml(fixture):
     port = fixture.property("server.port")
 
-    assert (port.value, str(port.file)) == ("9090", "src/main/resources/application.properties")
+    assert (port.value, port.file.as_posix()) == ("9090", "src/main/resources/application.properties")
     assert fixture.property("spring.datasource.url").value == "jdbc:postgresql://db.example.com:5432/shop"
     assert fixture.property("no.such.key") is None
 
 
 def test_demo_properties(demo):
-    assert [(p.key, p.value, str(p.file), p.line) for p in demo.properties] == [
+    assert [(p.key, p.value, p.file.as_posix(), p.line) for p in demo.properties] == [
         ("spring.application.name", "demo-app", "src/main/resources/application.properties", 1)
     ]
 
